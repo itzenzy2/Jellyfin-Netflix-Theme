@@ -78,13 +78,6 @@ body, h1, h2, h3, h4, h5, h6, p {
     --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --glass-glow: 0 0 20px rgba(229, 9, 20, 0.1);
-
-    /* Colorful Background Gradients */
-    --bg-gradient-primary: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
-    --bg-gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
-    --bg-gradient-accent: linear-gradient(135deg, #E50914 0%, #B81D24 50%, #E50914 100%);
-    --bg-gradient-glass: linear-gradient(135deg, rgba(229, 9, 20, 0.05) 0%, rgba(184, 29, 36, 0.08) 50%, rgba(229, 9, 20, 0.05) 100%);
-    --bg-gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.02) 100%);
 }
 /* ~~~~~~~~~~~~~~~~~~~~ ACCENT COLOR APPLICATION ~~~~~~~~~~~~~~~~~~~~ */
 /* Styles that apply the theme's accent colors to various UI elements. */
@@ -317,20 +310,6 @@ html {
     position: relative;
 }
 
-.backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent)::before,
-.noBackdropTransparency .detailPageSecondaryContainer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: -1;
-}
-
 /* Library sections with enhanced glass effects */
 .libraryDocument.withSectionTabs .backgroundContainer {
     background-color: var(--secondary-background-transparent) !important;
@@ -426,19 +405,6 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     overflow: hidden;
 }
 
-.dialog::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: -1;
-}
-
 /* Enhanced action sheet styling */
 .actionSheetTitle {
     margin: 10px 20px !important;
@@ -447,7 +413,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 
 .actionSheetMenuItem.emby-button:hover,
 .listItem:hover {
-    background: var(--bg-gradient-accent) !important;
+    background: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.2) !important; /* Simplified background */
     backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
     border-radius: var(--rounded-cards) !important;
     box-shadow: 0 4px 20px rgba(229, 9, 20, 0.2) !important;
@@ -456,7 +422,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 }
 
 .actionSheetContent {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important; /* Simplified background */
     backdrop-filter: blur(var(--glass-blur)) !important;
     border-radius: var(--rounded-cards) !important;
     border: var(--glass-border) !important;
@@ -506,18 +472,6 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     position: relative;
 }
 
-.skinHeader::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    pointer-events: none;
-    z-index: -1;
-}
-
 .layout-desktop .skinHeader,
 .layout-tv .skinHeader {
     padding-top: 1.5em !important;
@@ -539,20 +493,6 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-.headerTabs::before,
-.headerRight::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: -1;
 }
 
 /* == Header Button Hover & Focus (Right Section) == */
@@ -704,19 +644,6 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     overflow: hidden;
 }
 
-.layout-desktop .mainDrawer:not(.dashboardDocument)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: -1;
-}
-
 /* Enhanced mobile sidebar styling */
 .layout-mobile .mainDrawer {
     width: 250px !important;
@@ -729,19 +656,6 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     border-bottom-right-radius: 30px !important;
     position: relative;
     overflow: hidden;
-}
-
-.layout-mobile .mainDrawer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-gradient-card) !important;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: -1;
 }
 .layout-mobile .mainDrawer-scrollContainer {
     margin-top: 15px !important; /* Top margin for scrollable content */
