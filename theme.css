@@ -8,51 +8,25 @@
 */
 
 /* ~~~~~~~~~~~~~~~~~~~~ EXTERNAL IMPORTS ~~~~~~~~~~~~~~~~~~~~ */
-@import url('https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@300;400;500;600;700&family=Helvetica+Neue:wght@300;400;500;600;700&display=swap'); /* Netflix-style fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap'); /* Quicksand Font from Google Fonts */
 @import url("https://cdn.jsdelivr.net/gh/Druidblack/jellyfin-icon-metadata/public-icon.css"); /* Metadata icons by Druidblack */
 @import url("https://cdn.jsdelivr.net/gh/n00bcodr/Jellyfish/fonts/materialSymbolsRounded.css");
 @import url("https://cdn.jsdelivr.net/gh/n00bcodr/Jellyfish/loginpage.css");
-/* Netflix theme uses custom colors instead of external color schemes */
+@import url("https://cdn.jsdelivr.net/gh/n00bcodr/Jellyfish/colors/jellyblue.css");
 
 /* ~~~~~~~~~~~~~~~~~~~~ GLOBAL CSS VARIABLES ~~~~~~~~~~~~~~~~~~~~ */
 /* Defines core variables used throughout the theme for consistency. */
 :root {
-    --theme-updated-on: "13 September 2025 - Netflix Theme"; /* Date of last theme update */
-    --theme-name: 'Netflix for Jellyfin';
-    --rounded-cards: 15px; /* Keep original rounding */
-    --blur: 15px;          /* Keep original blur */
-    
-    /* Netflix Modern Color Palette */
-    --netflix-red: #E50914;
-    --netflix-dark-red: #B81D24;
-    --netflix-black: #000000;
-    --netflix-dark-gray: #141414;
-    --netflix-medium-gray: #1F1F1F;
-    --netflix-light-gray: #2F2F2F;
-    --netflix-card-gray: #181818;
-    --netflix-white: #FFFFFF;
-    --netflix-text-gray: #A3A3A3;
-    --netflix-text-muted: #737373;
+    --theme-updated-on: "13 September 2025 - Netflix Colors"; /* Date of last theme update */
+    --theme-name: 'Netflix Colors for Jellyfish';
+    --rounded-cards: 15px; /* Standard border-radius */
+    --blur: 15px;           /* Default blur intensity */
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~ GLOBAL FONT ~~~~~~~~~~~~~~~~~~~~ */
-/* Sets the font for the theme - keeping original Quicksand with Netflix colors. */
+/* Sets the font for the theme. */
 body, h1, h2, h3, h4, h5, h6, p {
     font-family: 'Quicksand', sans-serif !important;
-    color: var(--netflix-white);
-}
-
-/* Enhanced typography with Netflix colors */
-h1, h2, h3 {
-    color: var(--netflix-white);
-}
-
-h4, h5, h6 {
-    color: var(--netflix-white);
-}
-
-.cardText-secondary, .cardText-subtitle {
-    color: var(--netflix-text-gray) !important;
 }
 
 /* hide scrollbars */
@@ -68,40 +42,42 @@ h4, h5, h6 {
 
 /* Show theme date in dashboard */
 .dashboardActionsContainer::before {
-    content: "Netflix Theme for Jellyfin - Updated " var(--theme-updated-on, "..........");
+    content: "Theme last updated on " var(--theme-updated-on, "..........");
     display: block;
-    background-color: var(--netflix-red);
-    color: var(--netflix-white);
+    background-color: var(--alt-accent-color);
+    color: #ddd;
     border-radius: var(--rounded-cards);
     padding: 15px 15px;
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     margin-bottom: 1em;
     margin-left: 2px;
 }
 
-/* Define Netflix color scheme variables */
+/* Override jellyblue.css colors with Netflix colors - keeping original structure */
 :root {
-    --primary-accent-color: var(--netflix-red);
-    --secondary-accent-color: var(--netflix-light-gray);
-    --alt-accent-color: var(--netflix-dark-red);
-    --primary-background-color: var(--netflix-black);
-    --secondary-background-color: var(--netflix-dark-gray);
-    --secondary-background-transparent: rgba(20, 20, 20, 0.95);
-    --text-color: var(--netflix-white);
-    --text-color-secondary: var(--netflix-text-gray);
+    /* Netflix Color Overrides */
+    --primary-accent-color: #E50914 !important; /* Netflix Red */
+    --secondary-accent-color: #2F2F2F !important; /* Netflix Light Gray */
+    --alt-accent-color: #B81D24 !important; /* Netflix Dark Red */
+    --primary-background-color: #000000 !important; /* Netflix Black */
+    --secondary-background-color: #141414 !important; /* Netflix Dark Gray */
+    --secondary-background-transparent: rgba(20, 20, 20, 0.95) !important;
+    --text-color: #FFFFFF !important; /* Netflix White */
+    --text-color-secondary: #A3A3A3 !important; /* Netflix Text Gray */
     
-    /* Additional Netflix-specific variables */
+    /* Additional color variables that may be used */
+    --primary-r: 229; /* RGB values for Netflix Red */
+    --primary-g: 9;
+    --primary-b: 20;
     --header-background-color: rgba(31, 31, 31, 0.8);
-    --card-background-color: var(--netflix-card-gray);
-    --hover-color: var(--netflix-medium-gray);
 }
 /* ~~~~~~~~~~~~~~~~~~~~ ACCENT COLOR APPLICATION ~~~~~~~~~~~~~~~~~~~~ */
 /* Styles that apply the theme's accent colors to various UI elements. */
 
 /* == Primary Accent Backgrounds == */
-/* Applied to main interactive element backgrounds indicating a primary action or state - Netflix Red */
+/* Applied to main interactive element backgrounds indicating a primary action or state. */
 .emby-checkbox:checked+span+.checkboxOutline, /* Checked checkboxes outline */
 .selectionCommandsPanel,                      /* Toolbar for selected items */
 .countIndicator,                              /* Unwatched count on cards */
@@ -117,46 +93,34 @@ progress[aria-valuenow]:before,               /* Progress bar fill (pseudo-eleme
 .playbackProgress>div,                        /* Inner bar of playback progress sliders */
 .iconOsdProgressInner                         /* Inner part of OSD circular progress indicators */
 {
-    background: var(--netflix-red) !important;
-    transition: background-color 0.2s ease;
-}
-
-/* Hover effects for Netflix red elements */
-.button-submit:hover,
-.mainDetailButtons .btnPlay:hover {
-    background: var(--netflix-dark-red) !important;
+    background: var(--primary-accent-color) !important;
 }
 
 /* == Secondary Accent Backgrounds == */
-/* Applied to elements that need a less prominent accent background - Netflix Colors */
+/* Applied to elements that need a less prominent accent background. */
 .MuiAlert-root.MuiAlert-standardInfo,          /* Info type Material UI alerts */
 .navMenuOption-selected,                        /* Selected items in the main navigation menu */
 .MuiListItemButton-root.Mui-selected,           /* Selected Material UI list item buttons */
 .jstree-default .jstree-wholerow-clicked        /* Clicked rows in jsTree (e.g., metadata editor folder tree) */ {
-    background: var(--netflix-light-gray) !important;
-    border-left: 3px solid var(--netflix-red);
+    background: var(--secondary-accent-color) !important;
 }
 
 .MuiMenu-paper {
-    background: var(--netflix-card-gray) !important;
+    background: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--blur)) !important;
-    border: 1px solid var(--netflix-medium-gray);
 }
 
 .formDialogHeader,
 .formDialogFooter {
-    background: var(--netflix-light-gray) !important;
+    background: var(--secondary-accent-color) !important;
     backdrop-filter: blur(25px) !important;
-    border-bottom: 1px solid var(--netflix-medium-gray);
 }
 .formDialogHeader h3 {
-    font-weight: bold;
-    color: var(--netflix-white);
+    font-weight: 800;
 }
 
 .formDialogContent {
-    background: var(--netflix-card-gray) !important;
-    color: var(--netflix-white);
+    background: var(--secondary-background-transparent) !important;
 }
 
 .formDialog:has(.formDialogHeader-clear) .formDialogContent {
@@ -198,29 +162,17 @@ progress[aria-valuenow]:before,               /* Progress bar fill (pseudo-eleme
 }
 
 /* == Accent Color for Progress Bars == */
-/* Styles progress bar elements with Netflix red and improved styling. */
+/* Styles progress bar elements with the primary accent color. */
 progress::-webkit-progress-value,             /* Progress bar fill for WebKit browsers */
 .itemProgressBarForeground,                   /* Foreground of item progress bars (e.g., watched progress on cards) */
 .mdl-slider-background-lower                  /* Lower part of Material Design Lite sliders (used in player progress) */
 {
-    background: var(--netflix-red) !important;
-    border-radius: 2px;
+    background: var(--primary-accent-color) !important;
 }
 
-progress::-webkit-progress-bar {
-    background-color: var(--netflix-light-gray) !important;
-    border-radius: 2px;
-}
-
+/* Background for the track of item progress bars, using primary accent with transparency. */
 .itemProgressBar {
-    background-color: var(--netflix-light-gray) !important;
-    border-radius: 2px;
-    height: 4px;
-}
-
-/* Background for the track of item progress bars, using Netflix colors. */
-.itemProgressBar {
-    background: var(--netflix-light-gray) !important;
+    background: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.2) !important;
 }
 
 /* == Accent Color for Borders == */
@@ -306,56 +258,52 @@ progress::-webkit-progress-bar {
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~ SPECIFIC ELEMENT BACKGROUNDS (NON-ACCENT) ~~~~~~~~~~~~~~~~~~~~ */
-/* Defines specific background colors for particular buttons or elements, Netflix-themed. */
+/* Defines specific background colors for particular buttons or elements, not tied to the theme accent. */
 
-/* Netflix red for delete image button. */
+/* Red background for delete image button. */
 #btnDeleteImage {
-    background: var(--netflix-red) !important;
+    background: #942626c2 !important;
 }
-/* Netflix red for shutdown server button. */
+/* Red background for shutdown server button. */
 #btnShutdown {
-    background: var(--netflix-dark-red) !important;
+    background: #AE3739 !important;
 }
 /* Green background for restart server button and Save Metadata button */
 #btnRestartServer {
-    background: #46d369 !important;
+    background: forestgreen !important;
 }
-/* Netflix secondary color for refresh button and reset metadata button */
+/* Violet background for refresh button and reset metadata button */
 button.raised.btnRefresh.emby-button, .button-reset {
-    background: var(--netflix-light-gray) !important;
-    color: var(--netflix-white);
+    background: blueviolet !important;
 }
-/* Dark background for the Intro Skipper button - Netflix style. */
+/* Dark, semi-transparent background for the Intro Skipper button. */
 #skipIntro .emby-button {
-    background: var(--netflix-card-gray) !important;
-    color: var(--netflix-white);
-    border: 1px solid var(--netflix-medium-gray);
+    background: rgba(30, 30, 30, 0.7) !important;
 }
-/* Netflix red for cancel and reset password buttons. */
+/* Red background for cancel and reset password buttons. */
 #btnCancel, #btnResetPassword, .button-cancel {
-    background: var(--netflix-red) !important;
-    color: var(--netflix-white);
+    background: rgb(180 96 96) !important;
 }
 
 
 /* ~~~~~~~~~~~~~~~~~~~~ GENERAL BACKGROUND COLORS ~~~~~~~~~~~~~~~~~~~~ */
-/* Sets base background colors for main layout areas and components - Netflix Dark Theme */
+/* Sets base background colors for main layout areas and components. */
 
 /* Primary background for the entire page and containers without backdrops. */
 html
 {
-    background-color: var(--netflix-black) !important;
+    background-color: var(--primary-background-color) !important;
 }
 
 .backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent), /* Main page background, excluding when a backdrop is shown */
 .noBackdropTransparency .detailPageSecondaryContainer /* Secondary container on detail pages when backdrop transparency is off */
 {
-    background-color: var(--netflix-dark-gray) !important;
+    background-color: var(--secondary-background-transparent) !important;
 }
 
 .libraryDocument.withSectionTabs .backgroundContainer {
-    backdrop-filter: blur(var(--blur)) brightness(.05) !important;
-    background-color: var(--netflix-dark-gray);
+    backdrop-filter: blur(var(--blur)) brightness(.1) !important;
+    background-color: var(--secondary-background-transparent);
 }
 
 /* Secondary, often slightly transparent, backgrounds for elements like drawers, dialogs, and content sections. */
@@ -371,8 +319,7 @@ html
 .trackSelections,                            /* Audio/Subtitle track selection area */
 .MuiPaper-root.MuiPopover-paper
 {
-    background: var(--netflix-card-gray) !important;
-    border: 1px solid var(--netflix-medium-gray);
+    background: var(--secondary-background-transparent) !important;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~ DYNAMIC BACKGROUNDS (ACTIVE DEVICES) ~~~~~~~~~~~~~~~~~~~~ */
@@ -925,8 +872,8 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     border-radius: var(--rounded-cards) !important;
 }
 .emby-checkbox:checked+span+.checkboxOutline.multiSelectCheckboxOutline {
-	background: rgba(229, 9, 20, 0.5) !important;
-    border: 5px solid var(--netflix-red) !important;
+	background: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.5) !important;
+    border: 5px solid var(--primary-accent-color) !important;
     backdrop-filter: blur(var(--blur)) !important;
 }
 
