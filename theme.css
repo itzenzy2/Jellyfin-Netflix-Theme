@@ -302,17 +302,15 @@ button.raised.btnRefresh.emby-button, .button-reset {
 /* ~~~~~~~~~~~~~~~~~~~~ GENERAL BACKGROUND COLORS ~~~~~~~~~~~~~~~~~~~~ */
 /* Sets base background colors for main layout areas and components with iOS 26 style liquid glass effects. */
 
-/* Primary background for the entire page with colorful gradient */
+/* Primary background for the entire page */
 html {
-    background: var(--bg-gradient-primary) !important;
-    background-attachment: fixed !important;
-    min-height: 100vh;
+    background-color: var(--primary-background-color) !important;
 }
 
 /* Main page background with glass effect */
 .backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent),
 .noBackdropTransparency .detailPageSecondaryContainer {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border: var(--glass-border) !important;
     box-shadow: var(--glass-shadow) !important;
@@ -335,7 +333,7 @@ html {
 
 /* Library sections with enhanced glass effects */
 .libraryDocument.withSectionTabs .backgroundContainer {
-    background: var(--bg-gradient-secondary) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--glass-blur)) brightness(0.8) !important;
     border: var(--glass-border) !important;
     box-shadow: var(--glass-shadow), var(--glass-glow) !important;
@@ -353,7 +351,7 @@ html {
 .layout-tv .detailSectionContent,
 .trackSelections,
 .MuiPaper-root.MuiPopover-paper {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border: var(--glass-border) !important;
     box-shadow: var(--glass-shadow) !important;
@@ -419,7 +417,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 /* == Dialog Styling with iOS Liquid Glass Effects == */
 /* Modern glass morphism styling for dialog boxes. */
 .dialog {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-color) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border-radius: var(--rounded-cards) !important;
     border: var(--glass-border) !important;
@@ -502,7 +500,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 /* == Header Base Styling with iOS Liquid Glass Effects == */
 /* Modern glass morphism header with enhanced transparency and blur effects. */
 .skinHeader {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
     backdrop-filter: blur(calc(var(--glass-blur) * 0.8)) !important;
     border-bottom: var(--glass-border) !important;
     position: relative;
@@ -532,7 +530,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 /* Enhanced pill-shaped, blurred header elements with liquid glass effects. */
 .headerTabs,
 .headerRight {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     border-radius: 100px !important;
     color: var(--text-color) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
@@ -695,7 +693,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     z-index: 1099 !important;
     border-top-right-radius: 30px !important;
     border-bottom-right-radius: 30px !important;
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border: var(--glass-border) !important;
     border-left: none !important;
@@ -722,7 +720,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 /* Enhanced mobile sidebar styling */
 .layout-mobile .mainDrawer {
     width: 250px !important;
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border: var(--glass-border) !important;
     border-left: none !important;
@@ -985,7 +983,7 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 
 /* Add glass effect to cards */
 .cardScalable {
-    background: var(--bg-gradient-card) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
     border: var(--glass-border) !important;
     box-shadow: var(--glass-shadow) !important;
@@ -1821,7 +1819,7 @@ h3.tagline {
 #btnShutdown,
 .button-submit,
 .MuiButton-root {
-    background: var(--bg-gradient-glass) !important;
+    background-color: var(--secondary-background-transparent) !important;
     backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
     border: var(--glass-border) !important;
     box-shadow: var(--glass-shadow) !important;
@@ -1884,14 +1882,14 @@ h3.tagline {
 /* Special accent buttons */
 .button-submit,
 .MuiButton-root.MuiButton-containedSizeMedium {
-    background: var(--bg-gradient-accent) !important;
+    background-color: var(--primary-accent-color) !important;
     box-shadow: var(--glass-shadow), 0 0 20px rgba(229, 9, 20, 0.3) !important;
 }
 
 .button-submit:hover,
 .MuiButton-root.MuiButton-containedSizeMedium:hover {
     box-shadow: var(--glass-shadow), 0 0 40px rgba(229, 9, 20, 0.5) !important;
-    background: var(--bg-gradient-accent) !important;
+    background-color: var(--primary-accent-color) !important;
 }
 
 /* Change colors for options dropdown */
