@@ -1,7 +1,7 @@
 /*
 ================================================================================
 |                                                                              |
-|                         JELLYFIN CUSTOM THEME                               |
+|                         JELLYFIN Netflix Theme                               |
 |                         Main Stylesheet (theme.css)                          |
 |                                                                              |
 ================================================================================
@@ -66,12 +66,25 @@ body, h1, h2, h3, h4, h5, h6, p {
     --secondary-background-transparent: rgba(20, 20, 20, 0.95) !important;
     --text-color: #FFFFFF !important; /* Netflix White */
     --text-color-secondary: #A3A3A3 !important; /* Netflix Text Gray */
-    
+
     /* Additional color variables that may be used */
     --primary-r: 229; /* RGB values for Netflix Red */
     --primary-g: 9;
     --primary-b: 20;
     --header-background-color: rgba(31, 31, 31, 0.8);
+
+    /* iOS 26 Style Liquid Glass Effects */
+    --glass-blur: 40px;
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glass-glow: 0 0 20px rgba(229, 9, 20, 0.1);
+
+    /* Colorful Background Gradients */
+    --bg-gradient-primary: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    --bg-gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    --bg-gradient-accent: linear-gradient(135deg, #E50914 0%, #B81D24 50%, #E50914 100%);
+    --bg-gradient-glass: linear-gradient(135deg, rgba(229, 9, 20, 0.05) 0%, rgba(184, 29, 36, 0.08) 50%, rgba(229, 9, 20, 0.05) 100%);
+    --bg-gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.02) 100%);
 }
 /* ~~~~~~~~~~~~~~~~~~~~ ACCENT COLOR APPLICATION ~~~~~~~~~~~~~~~~~~~~ */
 /* Styles that apply the theme's accent colors to various UI elements. */
@@ -287,39 +300,64 @@ button.raised.btnRefresh.emby-button, .button-reset {
 
 
 /* ~~~~~~~~~~~~~~~~~~~~ GENERAL BACKGROUND COLORS ~~~~~~~~~~~~~~~~~~~~ */
-/* Sets base background colors for main layout areas and components. */
+/* Sets base background colors for main layout areas and components with iOS 26 style liquid glass effects. */
 
-/* Primary background for the entire page and containers without backdrops. */
-html
-{
-    background-color: var(--primary-background-color) !important;
+/* Primary background for the entire page with colorful gradient */
+html {
+    background: var(--bg-gradient-primary) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
 }
 
-.backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent), /* Main page background, excluding when a backdrop is shown */
-.noBackdropTransparency .detailPageSecondaryContainer /* Secondary container on detail pages when backdrop transparency is off */
-{
-    background-color: var(--secondary-background-transparent) !important;
+/* Main page background with glass effect */
+.backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent),
+.noBackdropTransparency .detailPageSecondaryContainer {
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    position: relative;
 }
 
+.backgroundContainer:not(.withBackdrop):not(.backgroundContainer-transparent)::before,
+.noBackdropTransparency .detailPageSecondaryContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Library sections with enhanced glass effects */
 .libraryDocument.withSectionTabs .backgroundContainer {
-    backdrop-filter: blur(var(--blur)) brightness(.1) !important;
-    background-color: var(--secondary-background-transparent);
+    background: var(--bg-gradient-secondary) !important;
+    backdrop-filter: blur(var(--glass-blur)) brightness(0.8) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow), var(--glass-glow) !important;
 }
 
-/* Secondary, often slightly transparent, backgrounds for elements like drawers, dialogs, and content sections. */
-.layout-desktop .mainDrawer,                  /* Main navigation drawer (Desktop) */
-.layout-mobile .mainDrawer,                   /* Main navigation drawer (Mobile) */
-.MuiPaper-root.MuiDrawer-paperAnchorDockedLeft, /* Material UI drawer paper */
-.dialog,                                      /* Dialog boxes */
-.programCell-active,                          /* Active program cells in the TV guide */
-.channelsContainer,                           /* Container for TV channels */
-.layout-desktop .detailSectionContent,        /* Content area within detail sections (Desktop) - Consider backdrop transparency rules */
-.layout-mobile .detailSectionContent,         /* Content area within detail sections (Mobile) */
-.layout-tv .detailSectionContent,         /* Content area within detail sections (tv) */
-.trackSelections,                            /* Audio/Subtitle track selection area */
-.MuiPaper-root.MuiPopover-paper
-{
-    background: var(--secondary-background-transparent) !important;
+/* Secondary backgrounds with liquid glass effects */
+.layout-desktop .mainDrawer,
+.layout-mobile .mainDrawer,
+.MuiPaper-root.MuiDrawer-paperAnchorDockedLeft,
+.dialog,
+.programCell-active,
+.channelsContainer,
+.layout-desktop .detailSectionContent,
+.layout-mobile .detailSectionContent,
+.layout-tv .detailSectionContent,
+.trackSelections,
+.MuiPaper-root.MuiPopover-paper {
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    position: relative;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~ DYNAMIC BACKGROUNDS (ACTIVE DEVICES) ~~~~~~~~~~~~~~~~~~~~ */
@@ -378,27 +416,53 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
     margin: 0 !important;
 }
 
-/* == Dialog Styling == */
-/* Basic styling for dialog boxes. */
+/* == Dialog Styling with iOS Liquid Glass Effects == */
+/* Modern glass morphism styling for dialog boxes. */
 .dialog {
-    background-color: var(--secondary-background-color) !important; /* Re-affirm background, could be inherited */
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
     border-radius: var(--rounded-cards) !important;
-    border: 1px solid var(--alt-accent-color);
-}
-/* Margin for titles within action sheets (a type of dialog). */
-.actionSheetTitle {
-    margin: 10px 20px !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow), var(--glass-glow) !important;
+    position: relative;
+    overflow: hidden;
 }
 
-.actionSheetMenuItem.emby-button:hover, .listItem:hover {
-    background-color: var(--secondary-accent-color) !important; /* Accent color on hover */
+.dialog::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Enhanced action sheet styling */
+.actionSheetTitle {
+    margin: 10px 20px !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.actionSheetMenuItem.emby-button:hover,
+.listItem:hover {
+    background: var(--bg-gradient-accent) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
     border-radius: var(--rounded-cards) !important;
+    box-shadow: 0 4px 20px rgba(229, 9, 20, 0.2) !important;
+    transform: translateY(-1px) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .actionSheetContent {
-    background: var(--secondary-background-transparent) !important;
-    backdrop-filter: var(--blur) !important;
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
     border-radius: var(--rounded-cards) !important;
+    border: var(--glass-border) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
 }
 
 /* == Mobile Cast & Crew Card Size == */
@@ -435,29 +499,62 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 
 /* ~~~~~~~~~~~~~~~~~~~~ LAYOUT - HEADER ~~~~~~~~~~~~~~~~~~~~ */
 
-/* == Header Base Styling == */
-/* Basic transparency and padding for the main header. */
+/* == Header Base Styling with iOS Liquid Glass Effects == */
+/* Modern glass morphism header with enhanced transparency and blur effects. */
 .skinHeader {
-    background-color: transparent !important; /* Ensures header starts transparent */
-}
-.layout-desktop .skinHeader,
-.layout-tv .skinHeader {
-    padding-top: 1.5em !important; /* Top padding for desktop and TV layouts */
-}
-.layout-tv .skinHeader {
-    padding-bottom: 10px !important; /* Specific bottom padding for TV layout */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.8)) !important;
+    border-bottom: var(--glass-border) !important;
+    position: relative;
 }
 
-/* == ZestyTheme-Inspired Header Tabs & Right Section == */
-/* Styles for header tabs and the right-aligned header items, creating a pill-shaped, blurred effect. */
-.headerTabs,       /* Container for navigation tabs within the header */
-.headerRight       /* Container for icons/buttons on the right of the header */
-{
-    background: var(--header-background-color) !important; /* Use a variable for background, ensure it's defined (e.g., semi-transparent white) */
-    border-radius: 100px !important; /* Creates the pill shape */
-    color: var(--secondary-background-color) !important; /* Text color, assuming a light header background means dark text */
-    backdrop-filter: blur(50px) !important; /* Strong blur effect */
-    box-shadow: 1px 3px 6px rgba(var(--secondary-background-color),.5); /* Dark shadow assuming secondary-background-color is dark */
+.skinHeader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.layout-desktop .skinHeader,
+.layout-tv .skinHeader {
+    padding-top: 1.5em !important;
+}
+.layout-tv .skinHeader {
+    padding-bottom: 10px !important;
+}
+
+/* == iOS 26 Style Header Tabs & Right Section == */
+/* Enhanced pill-shaped, blurred header elements with liquid glass effects. */
+.headerTabs,
+.headerRight {
+    background: var(--bg-gradient-glass) !important;
+    border-radius: 100px !important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow), var(--glass-glow) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.headerTabs::before,
+.headerRight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* == Header Button Hover & Focus (Right Section) == */
@@ -591,35 +688,62 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 
 /* ~~~~~~~~~~~~~~~~~~~~ LAYOUT - MAIN DRAWER (SIDEBAR) ~~~~~~~~~~~~~~~~~~~~ */
 
-/* == Sidebar Dynamic Styling (Desktop - Default Behavior) == */
-/* Styles for the main navigation drawer (sidebar) to make it appear dynamically (slides in/out). */
+/* == Sidebar Dynamic Styling with iOS Liquid Glass Effects == */
+/* Modern glass morphism sidebar with enhanced blur and transparency. */
 .layout-desktop .mainDrawer:not(.dashboardDocument) {
-    left: -320px !important; /* Initially positioned off-screen to the left */
-    z-index: 1099 !important; /* High z-index to appear above other content */
-    border-top-right-radius : 30px !important;
-    border-bottom-right-radius : 30px !important;
-    backdrop-filter: blur(30px) !important;
+    left: -320px !important;
+    z-index: 1099 !important;
+    border-top-right-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    border: var(--glass-border) !important;
+    border-left: none !important;
+    box-shadow: var(--glass-shadow), var(--glass-glow) !important;
     width: 275px !important;
-    transition: transform .24s ease-out,left .26s ease-out,-webkit-transform .24s ease-out !important; /* Smooth transition for sliding */
-}
-/* Shows the hamburger menu button when the drawer is dynamic. */
-.layout-desktop .mainDrawerButton:not(.dashboardDocument) {
-    display: inline-flex !important;
-}
-/* Resets content margin when the drawer is dynamic (no longer permanently shifted). */
-.layout-desktop .libraryPage:not(#editItemMetadataPage),
-.quickConnectSettingsContainer,
-.layout-desktop .appfooter {
-    margin-left: 0px !important;
+    transition: transform .24s ease-out, left .26s ease-out, -webkit-transform .24s ease-out !important;
+    position: relative;
+    overflow: hidden;
 }
 
-/* == Sidebar Styling (Mobile) == */
-/* Basic styling for the mobile sidebar. */
+.layout-desktop .mainDrawer:not(.dashboardDocument)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Enhanced mobile sidebar styling */
 .layout-mobile .mainDrawer {
     width: 250px !important;
-    backdrop-filter: blur(50px) !important;
-	border-top-right-radius : 30px !important;
-    border-bottom-right-radius : 30px !important;
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    border: var(--glass-border) !important;
+    border-left: none !important;
+    box-shadow: var(--glass-shadow), var(--glass-glow) !important;
+    border-top-right-radius: 30px !important;
+    border-bottom-right-radius: 30px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.layout-mobile .mainDrawer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
 }
 .layout-mobile .mainDrawer-scrollContainer {
     margin-top: 15px !important; /* Top margin for scrollable content */
@@ -843,19 +967,40 @@ progress::-webkit-progress-value  /* Filled part of the progress bar (WebKit) */
 
 /* ~~~~~~~~~~~~~~~~~~~~ CARDS & LIST ITEMS ~~~~~~~~~~~~~~~~~~~~ */
 
-/* == Universal Card Rounding == */
-/* Applies consistent rounding and overflow hiding to all card components and their inner parts. */
+/* == Universal Card Rounding with iOS Liquid Glass Effects == */
+/* Applies consistent rounding and overflow hiding to all card components with modern glass effects. */
 .card,
 .cardBox,
 .cardScalable,
 .cardPadder,
 .cardImageContainer,
-.blurhash-canvas,     /* Canvas used for blurhash placeholders */
+.blurhash-canvas,
 .cardContent,
-.cardOverlayContainer
- {
+.cardOverlayContainer {
     border-radius: var(--rounded-cards) !important;
-    overflow: hidden !important; /* Crucial for rounded corners on elements with backgrounds/images */
+    overflow: hidden !important;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Add glass effect to cards */
+.cardScalable {
+    background: var(--bg-gradient-card) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+.cardScalable:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: var(--glass-shadow), 0 0 40px rgba(229, 9, 20, 0.15) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+}
+
+/* Enhanced card overlay effects */
+.cardOverlayContainer {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.3)) !important;
 }
 
 .itemSelectionPanel {
@@ -1666,23 +1811,87 @@ h3.tagline {
 
 /* ~~~~~~~~~~~~~~~~~~~~ SETTINGS & DASHBOARD ~~~~~~~~~~~~~~~~~~~~ */
 
-/* == Input Fields, Lists, and Buttons Styling == */
-/* Applies consistent rounding to various form elements and lists in settings/dashboard. */
-.emby-input,
-.emby-textarea,
-.emby-select,
-.paperList,           /* General list container */
-.subtitleappearance-preview /* Preview area in subtitle settings */
-{
-    border-radius: var(--rounded-cards) !important;
+/* == iOS 26 Style Button Enhancements == */
+/* Modern glass morphism effects for buttons and interactive elements */
+
+/* Primary buttons with liquid glass effects */
+.button-submit,
+.emby-button.raised,
+.btnRefresh,
+#btnShutdown,
+.button-submit,
+.MuiButton-root {
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
+    border: var(--glass-border) !important;
+    box-shadow: var(--glass-shadow) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
 }
 
-.emby-input, .emby-textarea, .emby-select-withcolor {
-    border: 0.1em solid var(--alt-accent-color) !important;
+.button-submit::before,
+.emby-button.raised::before,
+.btnRefresh::before,
+#btnShutdown::before,
+.button-submit::before,
+.MuiButton-root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-gradient-card) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.emby-input, .emby-textarea, .paperList, .fab, .emby-select-withcolor, .visualCardBox, .emby-button.raised.button-alt  {
-    background: var(--alt-accent-color) !important;
+.button-submit:hover,
+.emby-button.raised:hover,
+.btnRefresh:hover,
+#btnShutdown:hover,
+.button-submit:hover,
+.MuiButton-root:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--glass-shadow), 0 0 30px rgba(229, 9, 20, 0.2) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+}
+
+.button-submit:hover::before,
+.emby-button.raised:hover::before,
+.btnRefresh:hover::before,
+#btnShutdown:hover::before,
+.button-submit:hover::before,
+.MuiButton-root:hover::before {
+    opacity: 1;
+}
+
+/* Active button states */
+.button-submit:active,
+.emby-button.raised:active,
+.btnRefresh:active,
+#btnShutdown:active,
+.button-submit:active,
+.MuiButton-root:active {
+    transform: translateY(0) scale(0.98) !important;
+    transition: all 0.1s ease !important;
+}
+
+/* Special accent buttons */
+.button-submit,
+.MuiButton-root.MuiButton-containedSizeMedium {
+    background: var(--bg-gradient-accent) !important;
+    box-shadow: var(--glass-shadow), 0 0 20px rgba(229, 9, 20, 0.3) !important;
+}
+
+.button-submit:hover,
+.MuiButton-root.MuiButton-containedSizeMedium:hover {
+    box-shadow: var(--glass-shadow), 0 0 40px rgba(229, 9, 20, 0.5) !important;
+    background: var(--bg-gradient-accent) !important;
 }
 
 /* Change colors for options dropdown */
@@ -2243,4 +2452,115 @@ h3.tagline {
 .layout-desktop #itemDetailPage:has(button.btnPlaystate[data-type="Book"]) .itemMiscInfo {
     margin-left: 11px !important;
     margin-top: 11px !important;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ iOS 26 STYLE LIQUID GLASS ENHANCEMENTS ~~~~~~~~~~~~~~~~~~~~ */
+
+/* == Modern Scroll Effects == */
+/* Smooth, iOS-style scrolling with momentum */
+* {
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* == Enhanced Focus States == */
+/* iOS-style focus rings with glass effects */
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3), var(--glass-shadow) !important;
+    border-color: var(--primary-accent-color) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
+}
+
+/* == Loading States with Glass Effects == */
+/* Modern loading indicators */
+.mdl-spinner,
+.progressring-spiner {
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.3)) !important;
+    background: var(--bg-gradient-glass) !important;
+    border-radius: 50% !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+/* == Enhanced Progress Bars == */
+/* iOS-style progress indicators */
+progress,
+.mdl-slider-background-flex {
+    background: var(--bg-gradient-glass) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5)) !important;
+    border-radius: 100px !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* == Subtle Animations == */
+/* iOS-style micro-interactions */
+.cardScalable,
+.button-submit,
+.emby-button,
+.listItem {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* == Enhanced Text Shadows == */
+/* Better readability with subtle text shadows */
+h1, h2, h3, h4, h5, h6,
+.sectionTitle,
+.dashboardSection h3 {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* == iOS-style Selection Effects == */
+/* Modern selection highlighting */
+::selection {
+    background: rgba(229, 9, 20, 0.3) !important;
+    text-shadow: none !important;
+}
+
+::-moz-selection {
+    background: rgba(229, 9, 20, 0.3) !important;
+    text-shadow: none !important;
+}
+
+/* == Enhanced Backdrop Effects == */
+/* iOS-style backdrop blur for modals and overlays */
+.dialog,
+.actionSheetContent,
+.MuiPaper-root {
+    backdrop-filter: blur(var(--glass-blur)) saturate(1.2) !important;
+}
+
+/* == Modern Color Palette Integration == */
+/* Additional colorful accents for a vibrant look */
+:root {
+    --accent-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-blue: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+    --accent-orange: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --accent-green: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+/* Apply colorful accents to specific elements */
+.navMenuOption-selected {
+    background: var(--bg-gradient-accent) !important;
+    box-shadow: 0 4px 20px rgba(229, 9, 20, 0.3) !important;
+}
+
+.countIndicator {
+    background: var(--bg-gradient-accent) !important;
+    box-shadow: 0 2px 10px rgba(229, 9, 20, 0.2) !important;
+}
+
+/* == Final Glass Touch == */
+/* Subtle glass overlay on the entire interface */
+html::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(229, 9, 20, 0.02) 0%, rgba(184, 29, 36, 0.03) 50%, rgba(229, 9, 20, 0.02) 100%) !important;
+    pointer-events: none;
+    z-index: 9999;
 }
