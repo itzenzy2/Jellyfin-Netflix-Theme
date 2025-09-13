@@ -1,7 +1,7 @@
 /*
 ================================================================================
 |                                                                              |
-|                         JELLYFIN NETFLIX THEME                               |
+|                         JELLYFIN CUSTOM THEME                               |
 |                         Main Stylesheet (theme.css)                          |
 |                                                                              |
 ================================================================================
@@ -17,8 +17,8 @@
 /* ~~~~~~~~~~~~~~~~~~~~ GLOBAL CSS VARIABLES ~~~~~~~~~~~~~~~~~~~~ */
 /* Defines core variables used throughout the theme for consistency. */
 :root {
-    --theme-updated-on: "13 September 2025 - Netflix Colors"; /* Date of last theme update */
-    --theme-name: 'Netflix Colors for Jellyfish';
+    --theme-updated-on: "07 September 2025 - 05:02 P.M."; /* Date of last theme update */
+    --theme-name: 'Jellyfish';
     --rounded-cards: 15px; /* Standard border-radius */
     --blur: 15px;           /* Default blur intensity */
 }
